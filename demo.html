@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MutualFirst</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter',sans-serif;
+    scroll-behavior:smooth;
+}
+
+body{
+    background:linear-gradient(135deg,#faf8f4,#fff7e6,#f8f1df);
+    color:#222;
+}
+
+/* NAVBAR */
+nav{
+    position:sticky;
+    top:10px;
+    z-index:1000;
+    padding:15px;
+}
+
+nav .wrap{
+    max-width:1200px;
+    margin:auto;
+    background:rgba(255,255,255,0.8);
+    backdrop-filter:blur(10px);
+    border-radius:50px;
+    padding:15px 30px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    font-size:1.5rem;
+    font-weight:700;
+    text-decoration:none;
+    color:#C9952C;
+}
+
+nav ul{
+    display:flex;
+    gap:20px;
+    list-style:none;
+}
+
+nav a{
+    text-decoration:none;
+    color:#333;
+    font-weight:500;
+}
+
+/* HERO */
+.hero{
+    min-height:90vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:60px 20px;
+    position:relative;
+}
+
+.hero::before{
+    content:"";
+    width:400px;
+    height:400px;
+    position:absolute;
+    top:-100px;
+    right:-100px;
+    background:#C9952C;
+    border-radius:50%;
+    opacity:.1;
+    filter:blur(80px);
+}
+
+.hero-content{
+    max-width:900px;
+    text-align:center;
+}
+
+.hero h1{
+    font-size:4rem;
+    margin-bottom:20px;
+}
+
+.hero p{
+    font-size:1.2rem;
+    color:#555;
+    margin-bottom:30px;
+}
+
+.btn{
+    display:inline-block;
+    padding:14px 30px;
+    border-radius:50px;
+    text-decoration:none;
+    transition:.3s;
+}
+
+.btn-primary{
+    background:#C9952C;
+    color:white;
+}
+
+.btn-primary:hover{
+    transform:translateY(-3px);
+    box-shadow:0 12px 25px rgba(201,149,44,.4);
+}
+
+/* STATS */
+.stats{
+    max-width:1000px;
+    margin:60px auto;
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    flex-wrap:wrap;
+}
+
+.stat{
+    background:rgba(255,255,255,.7);
+    backdrop-filter:blur(15px);
+    border-radius:20px;
+    padding:30px;
+    width:220px;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+.stat h2{
+    color:#C9952C;
+    font-size:2rem;
+}
+
+/* SECTION */
+section{
+    padding:80px 20px;
+}
+
+.wrap{
+    max-width:1200px;
+    margin:auto;
+}
+
+.sec-head{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.sec-head h2{
+    font-size:2.5rem;
+    margin-top:10px;
+}
+
+/* CARDS */
+.card-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+}
+
+.card{
+    background:rgba(255,255,255,.7);
+    backdrop-filter:blur(15px);
+    border-radius:20px;
+    padding:25px;
+    transition:.3s;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+.card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 20px 40px rgba(0,0,0,.1);
+}
+
+/* RISK */
+.risk-meter{
+    height:12px;
+    background:#eee;
+    border-radius:30px;
+    overflow:hidden;
+    margin-top:10px;
+}
+
+.risk-fill{
+    height:100%;
+    border-radius:30px;
+    background:linear-gradient(90deg,#2ecc71,#f1c40f,#e74c3c);
+}
+
+/* CALCULATOR */
+.calc-card{
+    background:rgba(255,255,255,.75);
+    backdrop-filter:blur(15px);
+    border-radius:25px;
+    padding:40px;
+    max-width:700px;
+    margin:auto;
+    box-shadow:0 10px 40px rgba(0,0,0,.08);
+}
+
+.calc-field{
+    margin-bottom:25px;
+}
+
+.calc-field label{
+    display:block;
+    margin-bottom:10px;
+}
+
+input[type=range]{
+    width:100%;
+}
+
+.result{
+    text-align:center;
+    margin-top:25px;
+}
+
+.result h1{
+    color:#C9952C;
+}
+
+/* FAQ */
+.faq-item{
+    background:rgba(255,255,255,.7);
+    backdrop-filter:blur(15px);
+    margin-bottom:15px;
+    border-radius:15px;
+    overflow:hidden;
+}
+
+.faq-q{
+    padding:20px;
+    cursor:pointer;
+    font-weight:600;
+}
+
+.faq-a{
+    display:none;
+    padding:20px;
+    border-top:1px solid #ddd;
+}
+
+.faq-item.open .faq-a{
+    display:block;
+}
+
+/* FOOTER */
+footer{
+    padding:40px;
+    text-align:center;
+    background:#111;
+    color:white;
+}
+
+/* REVEAL */
+.reveal{
+    opacity:0;
+    transform:translateY(50px);
+    transition:.8s;
+}
+
+.reveal.active{
+    opacity:1;
+    transform:translateY(0);
+}
+
+@media(max-width:768px){
+    .hero h1{
+        font-size:2.5rem;
+    }
+
+    nav ul{
+        display:none;
+    }
+}
+</style>
+</head>
+<body>
+
+<nav>
+<div class="wrap">
+<a href="#" class="logo">MutualFirst</a>
+
+<ul>
+<li><a href="#about">About</a></li>
+<li><a href="#types">Types</a></li>
+<li><a href="#calculator">Calculator</a></li>
+<li><a href="#faq">FAQ</a></li>
+</ul>
+</div>
+</nav>
+
+<header class="hero">
+<div class="hero-content reveal">
+<h1>Grow Wealth With Mutual Funds</h1>
+
+<p>
+Start investing through SIPs and let the power of compounding
+work for your future.
+</p>
+
+<a href="#calculator" class="btn btn-primary">
+Try SIP Calculator
+</a>
+</div>
+</header>
+
+<section class="stats reveal">
+<div class="stat">
+<h2>₹500</h2>
+<p>Minimum SIP</p>
+</div>
+
+<div class="stat">
+<h2>12%</h2>
+<p>Average Return</p>
+</div>
+
+<div class="stat">
+<h2>20+</h2>
+<p>Years Compounding</p>
+</div>
+</section>
+
+<section id="about" class="reveal">
+<div class="wrap">
+<div class="sec-head">
+<h2>What is a Mutual Fund?</h2>
+</div>
+
+<div class="card-grid">
+<div class="card">
+<h3>Invest</h3>
+<p>You invest money regularly.</p>
+</div>
+
+<div class="card">
+<h3>Pool</h3>
+<p>Money is pooled with other investors.</p>
+</div>
+
+<div class="card">
+<h3>Manage</h3>
+<p>Fund manager invests professionally.</p>
+</div>
+
+<div class="card">
+<h3>Grow</h3>
+<p>Your wealth grows over time.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section id="types" class="reveal">
+<div class="wrap">
+<div class="sec-head">
+<h2>Fund Types</h2>
+</div>
+
+<div class="card-grid">
+
+<div class="card">
+<h3>Large Cap</h3>
+<p>Stable and lower risk.</p>
+<div class="risk-meter">
+<div class="risk-fill" style="width:25%"></div>
+</div>
+</div>
+
+<div class="card">
+<h3>Mid Cap</h3>
+<p>Balanced growth and risk.</p>
+<div class="risk-meter">
+<div class="risk-fill" style="width:65%"></div>
+</div>
+</div>
+
+<div class="card">
+<h3>Small Cap</h3>
+<p>High growth potential.</p>
+<div class="risk-meter">
+<div class="risk-fill" style="width:90%"></div>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<section id="calculator" class="reveal">
+<div class="wrap">
+<div class="sec-head">
+<h2>SIP Calculator</h2>
+</div>
+
+<div class="calc-card">
+
+<div class="calc-field">
+<label>SIP Amount ₹<span id="sipVal">10000</span></label>
+<input type="range" id="sip" min="500" max="50000" step="500" value="10000">
+</div>
+
+<div class="calc-field">
+<label>Years <span id="yearVal">20</span></label>
+<input type="range" id="years" min="1" max="35" value="20">
+</div>
+
+<div class="calc-field">
+<label>Return % <span id="rateVal">12</span></label>
+<input type="range" id="rate" min="6" max="18" value="12">
+</div>
+
+<div class="result">
+<p>Future Value</p>
+<h1 id="futureValue">₹0</h1>
+</div>
+
+</div>
+</div>
+</section>
+
+<section id="faq" class="reveal">
+<div class="wrap">
+<div class="sec-head">
+<h2>FAQ</h2>
+</div>
+
+<div class="faq-item">
+<div class="faq-q">Can I lose money?</div>
+<div class="faq-a">
+Yes. Mutual funds are market linked and returns are not guaranteed.
+</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-q">What is SIP?</div>
+<div class="faq-a">
+Systematic Investment Plan lets you invest monthly.
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<footer>
+<p>
+Mutual fund investments are subject to market risk.
+Read all scheme-related documents carefully.
+</p>
+</footer>
+
+<script>
+const sip=document.getElementById("sip");
+const years=document.getElementById("years");
+const rate=document.getElementById("rate");
+
+function calculate(){
+let P=parseFloat(sip.value);
+let y=parseFloat(years.value);
+let r=(parseFloat(rate.value)/100)/12;
+
+let n=y*12;
+
+let fv=P*((Math.pow(1+r,n)-1)/r)*(1+r);
+
+document.getElementById("sipVal").textContent=P;
+document.getElementById("yearVal").textContent=y;
+document.getElementById("rateVal").textContent=rate.value;
+
+document.getElementById("futureValue").textContent=
+"₹"+Math.round(fv).toLocaleString("en-IN");
+}
+
+[sip,years,rate].forEach(el=>{
+el.addEventListener("input",calculate);
+});
+
+calculate();
+
+document.querySelectorAll(".faq-item").forEach(item=>{
+item.addEventListener("click",()=>{
+item.classList.toggle("open");
+});
+});
+
+const reveals=document.querySelectorAll(".reveal");
+
+window.addEventListener("scroll",()=>{
+reveals.forEach(el=>{
+let top=el.getBoundingClientRect().top;
+
+if(top<window.innerHeight-100){
+el.classList.add("active");
+}
+});
+});
+</script>
+
+</body>
+</html>
